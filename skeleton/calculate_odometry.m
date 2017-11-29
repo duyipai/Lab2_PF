@@ -18,5 +18,8 @@ if ~delta_t
     return;
 end
 % FILL IN HERE
-
+wr=2*pi*e_R/E_T/delta_t;
+wl=2*pi*e_L/E_T/delta_t;
+omega=(wr*R_R-wl*R_L)/B;
+v=(wr*R_R+wl*R_L)/2;
 end
