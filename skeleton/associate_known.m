@@ -25,13 +25,13 @@ function [outlier,Psi] = associate_known(S_bar,z,W,Lambda_psi,Q,known_associatio
         h(i,:,:) = ht;
     end
     nu = z - h;
-    nu(:,:,2) = mod(nu(:,:,2)+pi, 2*pi)-pi;
+    nu(:,:,2) = mod(nu(:,:,2)+pi, 6.283185307179586)-pi;
     Psi = zeros(n, M);
-    deno = 1/2/pi/det(Q)^(1/2);
+    deno = 0.159154943091895/det(Q)^(1/2);
     for i = 1:n % n
         nu_i = reshape(nu(i,:,:), M, 2)';
-        Psi(i, :) = deno * exp(-1/2*sum(nu_i.*(Q\nu_i)));
+        Psi(i, :) = deno * exp(-0.5*sum(nu_i.*(Q\nu_i)));
     end
-    outlier = (sum(Psi, 2)/M) < Lambda_psi;
+    outlier = ((sum(Psi, 2)/M) < Lambda_psi)';
     Psi =reshape(Psi, 1, n, M);
 end

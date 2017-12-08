@@ -11,8 +11,8 @@ function S = systematic_resample(S_bar)
     m = size(S_bar, 2);
     S_bar(4, :) = 1/m;
     r = rand()/m;
-    for i = 1:m
-       j = find(c > r + (i-1)/m, 1);
-       S(:,i) = S_bar(:, j);
-    end
+    t = (0:(m-1))/m+r;
+    idxs = arrayfun(@(x)find(c > x, 1), t);
+    i = 1:m;
+    S(:, i) = S_bar(:, idxs);
 end

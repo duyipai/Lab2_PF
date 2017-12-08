@@ -10,14 +10,14 @@
 %           h           2XM
 function h = observation_model(S,W,j)
 % FILL IN HERE
-x = W(1,j);
-y = W(2, j);
-sz = size(S, 2);
-h = zeros(2, sz);
-for i = 1:sz
-    tx = S(1, i);
-    ty = S(2, i);
-    ttheta = S(3, i);
-    h(:,i) = [sqrt((x-tx)^2+(y-ty)^2);mod(atan2(y-ty, x-tx)-ttheta+pi, 2*pi)-pi];
-end
+    x = W(1,j);
+    y = W(2, j);
+    M = size(S, 2);
+    h1x = [x - S(1,:); zeros(1, M)];
+    h1y = [y - S(2, :); zeros(1, M)];
+    h1 = h1x.^2 + h1y.^2;
+    h1 = sqrt(h1);
+    h2 =[zeros(1, M); atan2(h1y(1, :), h1x(1, :))- S(3, :)];
+    h2 = mod(h2 + pi, 6.283185307179586) - pi;
+    h = h1 + h2;
 end

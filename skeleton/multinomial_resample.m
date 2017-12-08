@@ -11,8 +11,8 @@ function S = multinomial_resample(S_bar)
     S = zeros(size(S_bar));
     m = size(S_bar, 2);
     S_bar(4, :) = 1/m;
-    for i =1:m
-       j = find(c > rand(), 1);
-       S(:,i) = S_bar(:,j);
-    end
+    t =rand(1, m);
+    idxs = arrayfun(@(x)find(c > x, 1), t);
+    i =1:m;
+    S(:,i) = S_bar(:,idxs);
 end

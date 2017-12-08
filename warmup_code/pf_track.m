@@ -9,14 +9,14 @@ function pf_track(Z,X,VERBOSE)
 %Parameter Initialization
 if nargin < 3; VERBOSE = 2; end;
 params.state_space_dimension = 3; % either 3 or 2
-params.Sigma_Q = diag([100 100]); % measurement noise covariance matrix
+params.Sigma_Q = 10*diag([100 100]); % measurement noise covariance matrix
 params.M = 1000;
 params.motion_type = 2; %0=fixed, 1=linear, 2=circular
 params.v_0 = 2*pi*200/688;
 params.theta_0 = 0;
 params.state_space_bound = [640;480];
 params.thresh_avg_likelihood = 0.0001;
-RESAMPLE_MODE = 1; 
+RESAMPLE_MODE = 2; 
 %0=no resampling 1=vanilla resampling, 2=systematic resampling
 switch params.state_space_dimension
     case 2
